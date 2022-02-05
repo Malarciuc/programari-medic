@@ -5,7 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-header d-flex align-content-center justify-content-center"> <h4 class="text-center"> Programari </h4>
+                         <a class="btn mx-5 align-content-end btn-primary" href="/make-appointment" >Fa o programare</a>
+                    </div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -15,10 +17,25 @@
                         @endif
                         @if($appointments->count())
                             <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Nume Prenume Medic</th>
+                                    <th>Data programarii</th>
+                                    <th>Ora programarii</th>
+                                </tr>
+                                </thead>
                                 @foreach($appointments as $appointment)
 
                                     <tr class="d-table-row">
-
+                                          <td>
+                                              {{$appointment->doctor->name}}
+                                          </td>
+                                          <td>
+                                              {{$appointment->appointment_date}}
+                                          </td>
+                                          <td>
+                                              {{7 + $appointment->order}}:00
+                                          </td>
                                     </tr>
                                 @endforeach
                             </table>

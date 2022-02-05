@@ -82,9 +82,38 @@
                     <div class="">
                         <div class="p-3   fw-bold">{{$day}}</div>
                         <?php  for($i = 1; $i <= $work_hours + 1;  $i++) { ?>
+                        <form action="/make-appointment" method="POST">
+                            @csrf
+                            <input type="hidden" name="doctor_id" value="{{$doctor->id}}">
+                            <input type="hidden" name="order" value="{{$i}}">
+                            <input type="hidden" name="appointment_date" value="{{$week_days_in_dates[$index]->format('Y-m-d')}}">
+                            <button type="submit" class="
+                                    {{
+                                        //Nu permitem programarea la zilele din trecut
+                                        now()->subDay()->greaterThan($week_days_in_dates[$index]) ? 'disabled' : '' }}
+                                    {{
+                                        //Daca ziua din calendar este egala cu ziua de azi permitem programarea doar la orele din viitor
+                                        now()->startOfDay()->equalTo($week_days_in_dates[$index])
+                                        ?
+                                            (
+                                            (
+                                                now()->greaterThan(
+                                                carbon()->parse($week_days_in_dates[$index]->format("Y-m-d ". ((8+$i -1) < 10 ? '0': '') . (8 + $i -1)  .':00:00')."")
+                                                )
+                                               ) ? 'disabled' : ''
+                                               )
+                                       : ''
+                                     }}
 
-                            <div class="btn btn-primary justify-content-center m-1 p-2 {{$i === 5 ? 'disabled' : ''}}" >   {{((8+$i -1) < 10 ? '0': '') . (8 + $i -1)}}:00 - {{((8+$i) < 10 ? '0': '') . ( 8 + $i )}}:00  </div>
+                                    {{
+                                        //Nu permite sa te programezi daca deja e ocupat
+                                       $week_appointments->where('order', $i)->where('appointment_date', $week_days_in_dates[$index]->format('Y-m-d'))->first()
+                                        ? 'disabled'
+                                        : ''
+                                    }}
 
+                                    btn btn-primary justify-content-center m-1 p-2 {{$i === 5 ? 'disabled' : ''}}" >   {{((8+$i -1) < 10 ? '0': '') . (8 + $i -1)}}:00 - {{((8+$i) < 10 ? '0': '') . ( 8 + $i )}}:00  </button>
+                        </form>
                             <?php } ?>
 
                     </div>

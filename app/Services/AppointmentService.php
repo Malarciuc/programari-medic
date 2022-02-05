@@ -7,22 +7,23 @@ use Carbon\Carbon;
 
 class AppointmentService
 {
-    public function getWeekDaysInDates()
+    public function getWeekDaysInDates(): array
     {
-        $startOfWeek = now()->firstWeekDay;
+        $startOfWeek = now()->startOf('week');
+
         return [
-            Carbon::parse($startOfWeek)->format('d.m.Y'),
-            Carbon::parse($startOfWeek)->addDays(1)->format('d.m.Y'),
-            Carbon::parse($startOfWeek)->addDays(2)->format('d.m.Y'),
-            Carbon::parse($startOfWeek)->addDays(3)->format('d.m.Y'),
-            Carbon::parse($startOfWeek)->addDays(4)->format('d.m.Y'),
-            Carbon::parse($startOfWeek)->addDays(5)->format('d.m.Y'),
-            Carbon::parse($startOfWeek)->addDays(6)->format('d.m.Y'),
+            Carbon::parse($startOfWeek),
+            Carbon::parse($startOfWeek)->addDays(1),
+            Carbon::parse($startOfWeek)->addDays(2),
+            Carbon::parse($startOfWeek)->addDays(3),
+            Carbon::parse($startOfWeek)->addDays(4),
+            Carbon::parse($startOfWeek)->addDays(5),
+            Carbon::parse($startOfWeek)->addDays(6),
 
         ];
     }
 
-    public function getWeekDays()
+    public function getWeekDays(): array
     {
         return [
             'Luni',

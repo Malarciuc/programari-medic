@@ -41,6 +41,11 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+function carbon(...$params): \Carbon\Carbon
+{
+    return new \Carbon\Carbon($params);
+}
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
