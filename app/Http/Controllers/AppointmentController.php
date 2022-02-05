@@ -26,4 +26,11 @@ class AppointmentController extends Controller
             'work_hours'         => $service->getWorkHours(),
         ]);
     }
+
+    public function doctorsList()
+    {
+        $doctors = Doctor::all();
+
+        return view('doctors_list', compact('doctors'));
+    }
 }
