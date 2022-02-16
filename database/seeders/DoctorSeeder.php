@@ -24,7 +24,7 @@ class DoctorSeeder extends Seeder
     {
         return [
             [
-                'name' => 'Anatol Melnic',
+                'name' => 'Riscovoi Alina',
             ],
             [
                 'name' => 'Vadim Rusu',

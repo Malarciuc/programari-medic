@@ -78,7 +78,7 @@
                     <h5 class="mb-4">Alege programarea online, protejeaza-te pe timp de pandemie</h5>
                     <a
                             class="btn btn-outline-light btn-lg m-2"
-                            href="/appointment"
+                            href="/make-appointment"
                             role="button"
                             rel="nofollow"
                     >Programeaza-te</a

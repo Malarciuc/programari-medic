@@ -45,7 +45,7 @@
                         <a class="nav-link" aria-current="page" href="/">Pagina Principala</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/cabinet" rel="nofollow"
+                        <a class="nav-link" href="/home" rel="nofollow"
                            target="_blank">Cabinet</a>
                     </li>
 

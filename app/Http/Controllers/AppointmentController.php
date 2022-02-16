@@ -9,12 +9,7 @@ use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
-//    public function index()
-//    {
-//        $appointments = Appointment::where('user_id', auth()->user()->id)->get();
-//
-//        return view('appintments_list');
-//    }
+
 
     public function makeAppointment(Doctor $doctor, AppointmentService $service)
     {
