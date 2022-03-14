@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Services\AppointmentService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class AppointmentController extends Controller
 {
@@ -37,7 +40,7 @@ class AppointmentController extends Controller
         ]);
     }
 
-    public function revokeAppointment(Request $request): \Illuminate\Http\RedirectResponse
+    public function revokeAppointment(Request $request): RedirectResponse
     {
         $userId = auth()->user()->id;
         $appointmentId =  $request->appointment_id ?? null;
@@ -58,7 +61,7 @@ class AppointmentController extends Controller
     }
 
     public function createAppointment(Request $request
-    ): \Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse {
+    ): Redirector|Application|RedirectResponse {
         $appointment = Appointment::create([
             'user_id'          => auth()->user()->id,
             'doctor_id'        => $request->doctor_id,

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +20,10 @@ Route::get('/', function () {
 
 Route::middleware('auth:web')->group(function(){
 
-    Route::get('/make-appointment/{doctor}', [\App\Http\Controllers\AppointmentController::class,'makeAppointment']);
-    Route::get('/make-appointment/', [\App\Http\Controllers\AppointmentController::class,'doctorsList']);
-    Route::post('/make-appointment/', [\App\Http\Controllers\AppointmentController::class,'createAppointment']);
-    Route::get('/revoke-appointment/', [\App\Http\Controllers\AppointmentController::class, 'revokeAppointment']);
+    Route::get('/make-appointment/{doctor}', [AppointmentController::class, 'makeAppointment']);
+    Route::get('/make-appointment/', [AppointmentController::class, 'doctorsList']);
+    Route::post('/make-appointment/', [AppointmentController::class, 'createAppointment']);
+    Route::get('/revoke-appointment/', [AppointmentController::class, 'revokeAppointment']);
 });
 
 Auth::routes();
