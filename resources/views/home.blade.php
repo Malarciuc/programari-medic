@@ -22,6 +22,7 @@
                                     <th>Nume Prenume Medic</th>
                                     <th>Data programarii</th>
                                     <th>Ora programarii</th>
+                                    <th>Actiune</th>
                                 </tr>
                                 </thead>
                                 @foreach($appointments as $appointment)
@@ -36,6 +37,9 @@
                                           <td>
                                               {{7 + $appointment->order}}:00
                                           </td>
+                                        <td>
+                                            <a href="/revoke-appointment/?appointment_id={{$appointment->id}}" class="btn btn-danger">Anuleaza programare</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </table>

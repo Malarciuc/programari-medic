@@ -72,51 +72,62 @@
           rgba(91, 14, 214, 0.7) 100%
         );
       ">
-            <div class="h1 container mt-5 pt-5 text-center text-white">Programare la stomatolog {{ $doctor->name ?? 'Daniel' }}</div>
-            <div class="container d-flex align-items-center justify-content-center text-center h-75">
-                <div class="  d-flex  justify-content-center bg-white rounded-2  p-4 " >
+            <div class="h1 container mt-3 pt-5 text-center text-white"></div>
+            <div class=" alert alert-danger container align-items-center justify-content-center text-center " style=" background:white; width: 550px">
+                Pentru a evita raspindirea covid programativa in una din cele mai recente zile libere
+                        : {{$most_free_days}}
 
-
+            </div>
+            <div class="container d-flex align-items-center justify-content-center text-center h-75 mt-1">
+                <div class="  d-flex  justify-content-center bg-white rounded-2  p-2 ">
                     @foreach($week_days as $index => $day)
-
-                    <div class="">
-                        <div class="p-3   fw-bold">{{$day}}</div>
-                        <?php  for($i = 1; $i <= $work_hours + 1;  $i++) { ?>
-                        <form action="/make-appointment" method="POST">
-                            @csrf
-                            <input type="hidden" name="doctor_id" value="{{$doctor->id}}">
-                            <input type="hidden" name="order" value="{{$i}}">
-                            <input type="hidden" name="appointment_date" value="{{$week_days_in_dates[$index]->format('Y-m-d')}}">
-                            <button type="submit" class="
+                        <div class="">
+                            <div class="p-2   fw-bold">{{$day}}</div>
+                            <?php  for($i = 1; $i <= $work_hours + 1;  $i++) { ?>
+                            <form action="/make-appointment" method="POST">
+                                @csrf
+                                <input type="hidden" name="doctor_id" value="{{$doctor->id}}">
+                                <input type="hidden" name="order" value="{{$i}}">
+                                <input type="hidden" name="appointment_date"
+                                       value="{{$week_days_in_dates[$index]->format('Y-m-d')}}">
+                                <button type="submit" class="
                                     {{
                                         //Nu permitem programarea la zilele din trecut
-                                        now()->subDay()->greaterThan($week_days_in_dates[$index]) ? 'disabled' : '' }}
-                                    {{
-                                        //Daca ziua din calendar este egala cu ziua de azi permitem programarea doar la orele din viitor
-                                        now()->startOfDay()->equalTo($week_days_in_dates[$index])
-                                        ?
-                                            (
-                                            (
-                                                now()->greaterThan(
-                                                carbon()->parse($week_days_in_dates[$index]->format("Y-m-d ". ((8+$i -1) < 10 ? '0': '') . (8 + $i -1)  .':00:00')."")
-                                                )
-                                               ) ? 'disabled' : ''
-                                               )
-                                       : ''
-                                     }}
+                                        now()->subDay()->greaterThan($week_days_in_dates[$index]) ? 'disabled' : ''
+                                        }}
 
-                                    {{
-                                        //Nu permite sa te programezi daca deja e ocupat
-                                       $week_appointments->where('order', $i)->where('appointment_date', $week_days_in_dates[$index]->format('Y-m-d'))->first()
-                                        ? 'disabled'
-                                        : ''
-                                    }}
+                                {{
+    //Deconectam duminica dupa orele 15
+                                        ($index === 6 && $i >= 7) ? 'disabled' : ''
+                                }}
+                                {{
+                                    //Daca ziua din calendar este egala cu ziua de azi permitem programarea doar la orele din viitor
+                                    now()->startOfDay()->equalTo($week_days_in_dates[$index])
+                                    ?
+                                        (
+                                        (
+                                            now()->greaterThan(
+                                            carbon()->parse($week_days_in_dates[$index]->format("Y-m-d ". ((8+$i -1) < 10 ? '0': '') . (8 + $i -1)  .':00:00')."")
+                                            )
+                                           ) ? 'disabled' : ''
+                                           )
+                                   : ''
+                                 }}
+                                        {{$index}}
+                                {{
+                                    //Nu permite sa te programezi daca deja e ocupat
+                                   $week_appointments->where('order', $i)->where('appointment_date', $week_days_in_dates[$index]->format('Y-m-d'))->first()
+                                    ? 'disabled'
+                                    : ''
+                                }}
 
-                                    btn btn-primary justify-content-center m-1 p-2 {{$i === 5 ? 'disabled' : ''}}" >   {{((8+$i -1) < 10 ? '0': '') . (8 + $i -1)}}:00 - {{((8+$i) < 10 ? '0': '') . ( 8 + $i )}}:00  </button>
-                        </form>
+                                        btn btn-primary justify-content-center m-1 p-1 {{$i === 5 ? 'disabled' : ''}}">   {{((8+$i -1) < 10 ? '0': '') . (8 + $i -1)}}
+                                    :00 - {{((8+$i) < 10 ? '0': '') . ( 8 + $i )}}:00
+                                </button>
+                            </form>
                             <?php } ?>
 
-                    </div>
+                        </div>
                     @endforeach
 
                 </div>

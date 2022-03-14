@@ -19,10 +19,10 @@ Route::get('/', function () {
 
 Route::middleware('auth:web')->group(function(){
 
-    Route::get('/cabinet', [\App\Http\Controllers\AppointmentController::class, 'index']);
     Route::get('/make-appointment/{doctor}', [\App\Http\Controllers\AppointmentController::class,'makeAppointment']);
     Route::get('/make-appointment/', [\App\Http\Controllers\AppointmentController::class,'doctorsList']);
     Route::post('/make-appointment/', [\App\Http\Controllers\AppointmentController::class,'createAppointment']);
+    Route::get('/revoke-appointment/', [\App\Http\Controllers\AppointmentController::class, 'revokeAppointment']);
 });
 
 Auth::routes();

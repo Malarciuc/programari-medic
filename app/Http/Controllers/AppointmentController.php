@@ -16,11 +16,16 @@ class AppointmentController extends Controller
         $startDate = now()->startOf('week')->startOf('day');
         $endDate = now()->endOf('week')->endOf('day');
 
+
+
         $weekAppointments = Appointment::whereBetween('appointment_date', [
             $startDate->format('Y-m-d'),
             $endDate->format('Y-m-d'),
         ])->where('doctor_id', $doctor->id)
             ->get();
+
+        $mostFreeDays = $service->getMostFreeDays($weekAppointments);
+
 
         return view('create_appointment', [
             'week_appointments'  => $weekAppointments,
@@ -28,9 +33,23 @@ class AppointmentController extends Controller
             'week_days'          => $service->getWeekDays(),
             'week_days_in_dates' => $service->getWeekDaysInDates(),
             'work_hours'         => $service->getWorkHours(),
+            'most_free_days' =>$mostFreeDays
         ]);
     }
 
+    public function revokeAppointment(Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $userId = auth()->user()->id;
+        $appointmentId =  $request->appointment_id ?? null;
+
+        if(!$appointmentId){
+            return response()->redirectToRoute('home');
+        }
+
+        Appointment::where('user_id', $userId)->where('id', $appointmentId)->delete();
+
+        return response()->redirectToRoute('home');
+    }
     public function doctorsList()
     {
         $doctors = Doctor::all();
