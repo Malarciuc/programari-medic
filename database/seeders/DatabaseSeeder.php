@@ -14,5 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
          app(DoctorSeeder::class)->run();
+         app(AppointmentSeeder::class)->run();
+
     }
 }

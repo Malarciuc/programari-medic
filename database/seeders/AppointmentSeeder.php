@@ -6,6 +6,9 @@ namespace Database\Seeders;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
 
 class AppointmentSeeder extends Seeder
 {
@@ -18,19 +21,35 @@ class AppointmentSeeder extends Seeder
     {
         $days = 720;
 
-        for ($i = 1; $i <= $days * 8; $i++) {
-            User::query()->create([
-                'name'     => faker()->name,
-                'email'    => faker()->email,
-                'password' => bcrypt('123456789'),
-            ]);
+        $passowrd = bcrypt('123456789');
+
+        $usersToInsert = [];
+
+        $now = now();
+
+        for ($i = 1; $i <= (($days * 8 * 3) + 1000); $i++) {
+
+            $usersToInsert[] = [
+                'name'     => rand(1, 99999999). 'tesxt' . rand(1, 1000),
+                'email'    =>  rand(1, 99999999). 'tesxt' . rand(1, 1000). '@gmail.com',
+                'password' => $passowrd,
+                'created_at' => $now,
+                'updated_at' => $now
+            ];
+
+            if(count($usersToInsert) === 1000 || $i == ($days * 8 * 3) + 1000 ){
+
+                DB::table('users')->insert($usersToInsert);
+                $usersToInsert = [];
+            }
+           
         }
 
         $users = User::all()->toArray();
 
         $doctors = Doctor::all();
 
-        $holydays = ['2020-12-25'];
+        $holydays = ['2020-12-25', '2021-05-09'];
 
         for ($i = $days; $i > 0; $i--) {
             $date = now()->subDays($i);
@@ -42,8 +61,8 @@ class AppointmentSeeder extends Seeder
 
                         Appointment::query()->create([
                             'appointment_date'  => $formatedDate,
-                            'appointment_order' => $order,
-                            'user_id'           => array_shift($users)->id,
+                            'order' => $order,
+                            'user_id'           => array_shift($users)['id'],
                             'doctor_id'         => $doctor->id,
                         ]);
                     }
