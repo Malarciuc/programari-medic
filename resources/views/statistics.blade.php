@@ -21,7 +21,7 @@
                         $month = $date->format('M');
                         $day = $date->format('D');
 
-                        echo "[ new Date($year,$month , $day), $appointment->appointments ],"
+                        echo "[ new Date($year,$month , $day), $appointment->appointments ],";
 
                         }
                     ?>
