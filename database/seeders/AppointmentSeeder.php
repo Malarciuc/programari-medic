@@ -49,7 +49,7 @@ class AppointmentSeeder extends Seeder
 
         $doctors = Doctor::all();
 
-        $holydays = ['2020-12-25', '2021-05-09'];
+        $holydays = ['2020-12-25', '2021-05-09', '2022-04-11','2022-04-12','2022-04-13','2022-04-14','2022-04-15','2021-04-05','2021-04-06','2021-04-07','2021-04-08','2021-04-09','2021-04-10'];
 
         for ($i = $days; $i > 0; $i--) {
             $date = now()->subDays($i);
@@ -57,7 +57,7 @@ class AppointmentSeeder extends Seeder
             $chance = in_array($formatedDate, $holydays) ? 3 : rand(1, 2);
             foreach ($doctors as $doctor) {
                 for ($order = 1; $order <= 8; $order++) {
-                    if ($this->isChance($chance)) {
+                    if ($this->isChance($chance, $date)) {
 
                         Appointment::query()->create([
                             'appointment_date'  => $formatedDate,
@@ -72,8 +72,12 @@ class AppointmentSeeder extends Seeder
 
     }
 
-    private function isChance($chance = 1): bool
+    private function isChance($chance = 1, $date): bool
     {
+        if($date->isWeekend()){
+            $chance = 4;
+        }
+        
         return (rand(1, 3) <= $chance);
     }
 
