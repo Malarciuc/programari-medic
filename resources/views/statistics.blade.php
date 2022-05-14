@@ -5,24 +5,27 @@
     <div>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
-            google.charts.load("current", {packages:["calendar"]});
+            google.charts.load('current', { packages: ['calendar'] });
             google.charts.setOnLoadCallback(drawChart);
 
-            function drawChart() {
+            function drawChart () {
                 var dataTable = new google.visualization.DataTable();
                 dataTable.addColumn({ type: 'date', id: 'Date' });
                 dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
                 dataTable.addRows([
 
-                    @foreach($appointments as $appointment)
-                    <?php $date = carbon($appointment->appointment);
+                    <?php
+                    foreach ($appointments as $appointment) {
+                        $date = carbon($appointment->appointment);
                         $year = $date->format('Y');
                         $month = $date->format('M');
                         $day = $date->format('D');
 
                         echo "[ new Date($year,$month , $day), $appointment->appointments ],"
-                        ?>
-                    @@endforeach
+
+                        }
+                    ?>
+
                 ]);
 
                 var chart = new google.visualization.Calendar(document.getElementById('calendar_basic'));
@@ -42,7 +45,8 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header d-flex align-content-center justify-content-center"> <h4 class="text-center"> Statistica </h4>
+                    <div class="card-header d-flex align-content-center justify-content-center"><h4 class="text-center">
+                            Statistica </h4>
                     </div>
 
                     <div class="card-body">
