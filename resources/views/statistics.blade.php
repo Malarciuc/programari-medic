@@ -33,8 +33,7 @@
                 var chart = new google.visualization.Calendar(document.getElementById('calendar_basic'));
 
                 var options = {
-                    title: 'Programari la medic',
-                    height: 350,
+                    title: 'Programari la medic'
                 };
 
                 chart.draw(dataTable, options);
