@@ -81,6 +81,6 @@ class AppointmentController extends Controller
                    ->groupBy('appointment_date')
                    ->get();
 
-        return view('statistics');
+        return view('statistics')->with(['appointments' => $appointments]);
     }
 }
