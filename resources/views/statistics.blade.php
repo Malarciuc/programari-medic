@@ -16,13 +16,14 @@
 
                     <?php
                     foreach ($appointments as $appointment) {
-                        dd($appointment);
-                        $date = carbon($appointment->appointment_date);
-                        $year = $date->format('Y');
-                        $month = $date->format('M');
-                        $day = $date->format('D');
+                        //dd($appointment);
+                        //$date = carbon($appointment->appointment_date);
+                        [$year, $month, $day] = explode('-',$appointment->appointment_date);
+                        //$year = $date->format('Y');
+                        //$month = $date->format('M');
+                        //$day = $date->format('D');
 
-                        echo "[ new Date($year,$month , $day), $appointment->appointments ],";
+                        echo "[ new Date({$year},{$month} , {$day}), $appointment->appointments ],";
 
                         }
                     ?>
