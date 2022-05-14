@@ -44,7 +44,7 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header d-flex align-content-center justify-content-center"><h4 class="text-center">
                             Statistica </h4>
