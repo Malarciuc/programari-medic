@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
@@ -76,6 +77,9 @@ class AppointmentController extends Controller
 
     public function statistics()
     {
+        $appointments = Appointment::query()->select(DB::raw('appointment_date, count(id) as appointments'))
+                   ->groupBy('appointment_date')
+                   ->get();
 
         return view('statistics');
     }
