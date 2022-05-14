@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="card-body">
-                        <div id="calendar_basic" style="height: 800px"></div>
+                        <div id="calendar_basic" style="height: 650px"></div>
                     </div>
                 </div>
             </div>
