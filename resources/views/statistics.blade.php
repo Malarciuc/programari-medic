@@ -16,7 +16,7 @@
 
                     <?php
                     foreach ($appointments as $appointment) {
-                        $date = carbon($appointment->appointment);
+                        $date = carbon($appointment->appointment_date);
                         $year = $date->format('Y');
                         $month = $date->format('M');
                         $day = $date->format('D');
