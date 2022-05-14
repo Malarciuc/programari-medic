@@ -9,6 +9,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\App;
 
 class AppointmentController extends Controller
 {
@@ -71,5 +72,11 @@ class AppointmentController extends Controller
 
 
         return redirect('/home');
+    }
+
+    public function statistics()
+    {
+
+        return view('statistics');
     }
 }

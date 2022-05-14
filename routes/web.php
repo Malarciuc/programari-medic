@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/statistics', [AppointmentController::class,'statistics']);
+
 Route::middleware('auth:web')->group(function(){
 
     Route::get('/make-appointment/{doctor}', [AppointmentController::class, 'makeAppointment']);
